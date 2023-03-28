@@ -3,7 +3,7 @@
 add_action( 'wp_enqueue_scripts', 'auto_scripts' );
 // add_action('wp_print_styles', 'theme_name_scripts'); // можно использовать этот хук он более поздний
 function auto_scripts() {
-
+    //get_template_directory_uri() - путь до текущей папки в которой лежит functions.php. 
 	wp_enqueue_style( 'style.css', get_template_directory_uri() . '/assets/css/style.css'); //точка это конкатенация
 	wp_enqueue_style( 'reset.css', get_template_directory_uri() . '/assets/css/reset.css'); 
 	wp_enqueue_style( 'slick.css', get_template_directory_uri() . '/assets/css/slick.css'); 
@@ -11,8 +11,17 @@ function auto_scripts() {
 	wp_enqueue_style( 'animate', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'); 
 	wp_enqueue_style( 'fonts-gstatic', 'https://fonts.gstatic.com'); 
 	
-    //get_template_directory_uri() - путь до текущей папки в которой лежит functions.php. 
-	// wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
+	wp_deregister_script('jquery');
+	wp_register_script('jquery','https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js');
+
+	wp_enqueue_script( 'jquery');
+	wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/slick.min.js', array('jquery'), 'null', true );
+	wp_enqueue_script( 'wow', get_template_directory_uri() . '/assets/js/wow.min.js', array('jquery'), 'null', true );
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), 'null', true );
+
+	add_theme_support('post-thumbnails');
+	add_theme_support('title-tag');
+	add_theme_support('custom-logo ');
 };
 ?>
 
